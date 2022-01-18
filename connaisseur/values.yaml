@@ -1,5 +1,5 @@
+---
 connaisseur:
-  # configure Connaisseur deployment
   deployment:
     replicasCount: 3
     image: securesystemsengineering/connaisseur:v2.3.0
@@ -26,8 +26,6 @@ connaisseur:
                       - connaisseur
               topologyKey: kubernetes.io/hostname
             weight: 100
-    #annotations:  # uncomment when using Kubernetes prior v1.19
-    #  seccomp.security.alpha.kubernetes.io/pod: runtime/default  # uncomment when using Kubernetes prior v1.19
     securityContext:
       allowPrivilegeEscalation: false
       capabilities:
@@ -39,7 +37,6 @@ connaisseur:
       runAsUser: null 
       runAsGroup: null
       seccompProfile: null 
-    # PodSecurityPolicy is deprecated as of Kubernetes v1.21, and will be removed in v1.25
     podSecurityPolicy:
       enabled: false
       name: ["connaisseur-psp"]  # list of PSPs to use, "connaisseur-psp" is the project-provided default
@@ -49,12 +46,6 @@ connaisseur:
   service:
     type: ClusterIP
     port: 443
-
-  ### VALIDATORS ###
-  # validators are a set of configurations (types, public keys, authentication)
-  # that can be used for validating one or multiple images (or image signatures).
-  # they are tied to their respective image(s) via the image policy below. there
-  # are a few handy validators pre-configured.
   validators:
   # static validator that allows each image
   - name: allow
